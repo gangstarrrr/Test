@@ -3,21 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="/test/resources/js/common.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("form").submit(function(event){
-			event.preventDefault();
-			var files=$("#file").files;
-			console.log(files);
-		});
-	)};
+<script type="text/javascript" src="/test/webjars/jquery/3.3.1/dist/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	$("form").submit(function(event){
+		event.preventDefault();
+		var files=$("#file").prop("files");
+		var fileData=[];
+ 		
+ 		$.ajax({
+			type:"post",
+			url:"/test/file/temp",
+			data:new FormData($(this)[0]),
+ 			processData:false,
+ 			contentType:false,
+ 			cache:false
+		}).done(function(data){
+			var json=JSON.parse(data);
+			var list=json.upload;
+			for(var i =0;i<list.length;i++){
+				var html="<img src='"+list[i].fileUrl +"' width='100'><br>";
+				$("#view").append(html);
+				console.log(html);
+			}
+		});  
+	});
+});
 </script>
 </head>
 <body>
-	<form action="/test/file/temp" enctype="multipart/form-data" method="post">
-		<input type="file" name="file" multiple="multiple"><br>
+	<form enctype="multipart/form-data">
+		<input type="file" name="file" id="file" multiple="multiple"><br>
 		<input type="submit" value="파일업로드">
 	</form>
+	<div id="view"></div>
 </body>
 </html>

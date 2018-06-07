@@ -38,6 +38,7 @@ public class FileService implements FileServiceInterface {
 					
 					fileMap.put("fileName",fileNm);
 					fileMap.put("filePath",path);
+					fileMap.put("fileUrl", "/test/resources/upload/"+menu+"/"+fileNm);
 					list.add(fileMap);
 				
 				
