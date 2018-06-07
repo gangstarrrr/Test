@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="/test/resources/js/common.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("form").submit(function(event){
+			event.preventDefault();
+			var files=$("#file").files;
+			console.log(files);
+		});
+	)};
+</script>
+</head>
+<body>
+	<form action="/test/file/temp" enctype="multipart/form-data" method="post">
+		<input type="file" name="file" multiple="multiple"><br>
+		<input type="submit" value="파일업로드">
+	</form>
+</body>
+</html>
